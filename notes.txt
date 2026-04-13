@@ -1,0 +1,59 @@
+@mauritz.wicker
+30.01.2026
+
+Fethching KMT data for BHTOM targets
+
+KMT data
+- from 2016 - 2025
+- (2026 will become available when?)
+- ex. 2016: https://kmtnet.kasi.re.kr/ulens/event/2016/listpage.dat
+
+
+Files:
+/prepare_KMT_ArchivalEventList.py
+    This loads the lists of events from KMTs webpage (for the years available)
+    Saves, for each year, the data in /kmt_EventTables/
+    NEED TO RUN IT ONCE
+/prepare_KMT_AlertsEventList.py
+    This loads the lists of events from KMTs webpage for the current year/alerts
+    Saves, for this year, the updated list in /kmt_EventTables/
+    NEED TO RUN IT EVERY TIME / EVERY NOW AND THEN (ie for new alerts!)
+/format_KMTfullList.py
+    This loads the tables from the individual years and combines them
+    Converts ra and dec from sexigesimal to degrees
+    Output: kmt_fullEvents.csv
+    NEEDS TO BE RUN EVERY TIME WE UPDATE THE CURRENT YEAR LIST (ie run prepare_KMT_AlertsEventList)
+/xMatch_KMTcoords.py
+    HERE IS WHERE WE INPUT RA AND DEC (and a NAME for saving)
+    Xmatch input coordinates with the full tables
+    Create temporary loaded files in /tempData/
+    Split data for each observatory
+    Save into separate csv files in /processedData/
+    To do: Remove the tremporary files?
+    Outputs:
+        In /xmatchedData/**name**/ it saves a json file that contains information including the real KMT name (KMT_Name)
+            -> this is used for saving the KMT data in /tempData/ and /processedData/
+            -> the final data is in /processedData/*KMT_NAME*/ as csv files for each observatory
+/loadview_KMTdata.py
+    Load and view/plot the final KMT data for an event
+/run_XmatchKMT.py
+    To run the entire X-Match search easily
+
+Data Dirs:
+/kmt_EventTables/
+    For each year a list of all the events from KMT
+    Created in prepare_KMTeventList.py
+/tempData/
+    To store temporary data for a cross matched event.
+    Created in xMatch_KMTcoords.py
+/processedData/
+    To store output final data for a cross matched event.
+    Created in xMatch_KMTcoords.py
+/xmatchedData/
+    To store Xmatch information for a cross matched event.
+    Created in xMatch_KMTcoords.py
+    
+Data Files:
+/kmt_fullEvents.csv
+    Full list of KMT events from 2016-2025 with information
+    Created by format_KMTfullList.py

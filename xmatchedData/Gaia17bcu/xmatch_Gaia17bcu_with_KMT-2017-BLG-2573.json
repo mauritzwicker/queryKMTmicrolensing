@@ -1,0 +1,20 @@
+{
+    "Name": "Gaia17bcu",
+    "ra_input": 266.54918,
+    "dec_input": -25.62171,
+    "KMT_Name": "KMT-2017-BLG-2573",
+    "KMT_year": 2017,
+    "KMT_id": "KB172573",
+    "KMT_url": "https://kmtnet.kasi.re.kr/ulens/event/2017/view.php?event=KMT-2017-BLG-2573",
+    "KMT_urldata": "https://kmtnet.kasi.re.kr/ulens/event/2017/data/KB172573/pysis/pysis.tar.gz",
+    "pth_Temp_data": "./tempData/KMT-2017-BLG-2573",
+    "pth_Processed_data": "./processedData/KMT-2017-BLG-2573",
+    "separation_arcsec": 0.05629535660801447,
+    "kmt_fieldStarID": "BLG19N0801.014642",
+    "kmt_t0": 7870.11524,
+    "kmt_u0": 0.012,
+    "kmt_tE": 14.1,
+    "kmt_Isource": 20.31,
+    "kmt_Ibase": 19.39,
+    "kmt_A_I": 2.62
+}
