@@ -12,7 +12,7 @@ import numpy as np
 import json
 import matplotlib.pyplot as plt
 
-DIR_SAVEFULLTABLE = '/Users/mwicker/Documents/Other_Code/getKMTdata/'
+DIR_SAVEFULLTABLE = '/Users/mwicker/Documents/Other_Code/queryKMTmicrolensing/'
 FN_SAVEFULLTABLE = 'kmt_fullEvents.csv'
 
 PTH_SAVETEMPFILES = './tempData'
@@ -45,7 +45,10 @@ def main(eventName_inp='test_MW', ra_inp=67.0, dec_inp=76.0, pltInfo=True):
             ax.invert_yaxis()
             # Add text box
             if pltInfo:
-                keys_to_show = [ 'Name', 'ra_input', 'dec_input', 'KMT_Name', 'KMT_year', 'KMT_id', 'kmt_fieldStarID', 'kmt_t0', 'kmt_u0', 'kmt_tE', 'kmt_Isource', 'kmt_Ibase', 'kmt_A_I' ]
+                keys_to_show = [ 'Name', 'ra_input', 'dec_input', 'KMT_Name', 'KMT_year',
+                 'kmt_data_status', 'kmt_public_release_date',
+                 'KMT_id', 'kmt_fieldStarID', 'kmt_t0', 'kmt_u0',
+                 'kmt_tE', 'kmt_Isource', 'kmt_Ibase', 'kmt_A_I' ]
                 lines = []
                 for k in keys_to_show:
                     v = crossMatch.get(k, "N/A")

@@ -1,0 +1,23 @@
+{
+    "Name": "kmt25blg07",
+    "ra_input": 268.4995,
+    "dec_input": -28.77936111,
+    "KMT_Name": "KMT-2025-BLG-0007",
+    "KMT_year": 2025,
+    "KMT_id": "KB250007",
+    "KMT_url": "https://kmtnet.kasi.re.kr/ulens/event/2025/view.php?event=KMT-2025-BLG-0007",
+    "KMT_urldata": "https://kmtnet.kasi.re.kr/ulens/event/2025/data/KB250007/pysis/pysis.tar.gz",
+    "pth_Temp_data": "./tempData/KMT-2025-BLG-0007",
+    "pth_Processed_data": "./processedData/KMT-2025-BLG-0007",
+    "separation_arcsec": 3.999987700708287e-06,
+    "kmt_fieldStarID": "BLG02K0102.077192",
+    "kmt_t0": 60747.87465,
+    "kmt_u0": 0.436,
+    "kmt_tE": 7.1,
+    "kmt_Isource": 19.85,
+    "kmt_Ibase": 20.0,
+    "kmt_A_I": 2.01,
+    "kmt_data_status": "PROPRIETARY",
+    "kmt_is_proprietary": true,
+    "kmt_public_release_date": "2026-07-01"
+}

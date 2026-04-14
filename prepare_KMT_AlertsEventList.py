@@ -12,7 +12,7 @@ import requests
 import os
 from datetime import datetime
 
-DIR_SAVETABLES = '/Users/mwicker/Documents/Other_Code/getKMTdata/kmt_EventTables'
+DIR_SAVETABLES = '/Users/mwicker/Documents/Other_Code/queryKMTmicrolensing/kmt_EventTables'
 OVERWRITE_TABLES = True
 
 RA_RE  = re.compile(r"^\d{2}:\d{2}:\d{2}(\.\d+)?$")

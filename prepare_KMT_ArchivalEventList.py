@@ -11,7 +11,7 @@ import re
 import requests
 import os
 
-DIR_SAVETABLES = '/Users/mwicker/Documents/Other_Code/getKMTdata/kmt_EventTables'
+DIR_SAVETABLES = '/Users/mwicker/Documents/Other_Code/queryKMTmicrolensing/kmt_EventTables'
 YEAR_INIT = 2016
 YEAR_FINAL = 2025
 OVERWRITE_TABLES = False

@@ -12,7 +12,7 @@ import format_KMTfullList
 import xMatch_KMTcoords
 import loadview_KMTdata
 
-QUERY_NEW_ALERTS = True # Whether to query again the table for the current year or not
+QUERY_NEW_ALERTS = False # Whether to query again the table for the current year or not
 
 def main():
     # Check if KMT list exists
@@ -29,9 +29,14 @@ def main():
         print('KMT list of Events exists and not Querying current alerts')
 
     # Source
-    obj_Name = 'Gaia17bcu' # KMT-2017-BLG-2573
-    obj_ra = 266.54918 # deg
-    obj_dec = -25.62171 # deg
+    # obj_Name = 'Gaia17bcu' # KMT-2017-BLG-2573
+    # obj_ra = 266.54918 # deg
+    # obj_dec = -25.62171 # deg
+
+    # Ex. Proprietary Event
+    obj_Name = 'kmt25blg07' # KMT-2025-BLG-0007 
+    obj_ra = 268.4995 # deg
+    obj_dec = -28.77936111 # deg
     
     # X-Match with the source 
     xMatch_KMTcoords.main(obj_Name, obj_ra, obj_dec)

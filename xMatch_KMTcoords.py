@@ -16,8 +16,9 @@ import tarfile
 import json
 import math
 import shutil
+from datetime import date
 
-DIR_SAVEFULLTABLE = '/Users/mwicker/Documents/Other_Code/getKMTdata/'
+DIR_SAVEFULLTABLE = '/Users/mwicker/Documents/Other_Code/queryKMTmicrolensing/'
 FN_SAVEFULLTABLE = 'kmt_fullEvents.csv'
 MAX_SEP = 1.0 # arcsec
 OVERWRITE_TABLES = False
@@ -118,7 +119,28 @@ def safe_float(x):
         return x
     except (ValueError, TypeError):
         return None
+    
+def get_kmt_proprietary_status(event_year):
+    """
+    KMT policy:
+    data become public on July 1 of the year after discovery.
+    """
+    release_date = date(int(event_year) + 1, 7, 1)
+    is_proprietary = date.today() < release_date
 
+    if is_proprietary:
+        status = 'PROPRIETARY'
+        name_suffix = '_PROPRIETARY'
+    else:
+        status = 'PUBLIC'
+        name_suffix = ''
+
+    return {
+        'is_proprietary': is_proprietary,
+        'status': status,
+        'release_date': release_date.isoformat(),
+        'name_suffix': name_suffix
+    }
 
 def main(eventName_inp='test_MW', ra_inp=67.0, dec_inp=76.0):
     saved_FULLtable = os.path.join(DIR_SAVEFULLTABLE, FN_SAVEFULLTABLE)
@@ -163,6 +185,8 @@ def main(eventName_inp='test_MW', ra_inp=67.0, dec_inp=76.0):
         # Now Load the data for this event from KMT
         yrEvent = row['table_year']
         kmtName = row['Event']
+        kmt_policy = get_kmt_proprietary_status(yrEvent)
+        print('KMT data status: {0} (public on {1})'.format(kmt_policy['status'], kmt_policy['release_date']))
         kmtID = kmtName.split('-')[0][0] + kmtName.split('-')[2][0] + kmtName.split('-')[1][-2:] + kmtName.split('-')[-1]
         url = 'https://kmtnet.kasi.re.kr/ulens/event/{0}/view.php?event={1}'.format(yrEvent, kmtName)
         url_tar = 'https://kmtnet.kasi.re.kr/ulens/event/{0}/data/{1}/pysis/pysis.tar.gz'.format(yrEvent, kmtID)
@@ -184,19 +208,22 @@ def main(eventName_inp='test_MW', ra_inp=67.0, dec_inp=76.0):
 
         # Save the Cross Match Data
         crossMatch = {'Name': eventName_inp, 'ra_input': float(ra_inp), 'dec_input': float(dec_inp),
-                      'KMT_Name': kmtName, 'KMT_year': int(yrEvent), 'KMT_id': kmtID,
-                      'KMT_url': url, 'KMT_urldata': url_tar,
-                      'pth_Temp_data': pthSaveTempData_thisEvent,
-                      'pth_Processed_data': pthSaveProcessedData_thisEvent,
-                      'separation_arcsec': float(sep_sv),
-                      'kmt_fieldStarID': kmt_fsID, 
-                      'kmt_t0': kmt_t0,
-                      'kmt_u0': kmt_u0,
-                      'kmt_tE': kmt_tE,
-                      'kmt_Isource': kmt_Is,
-                      'kmt_Ibase': kmt_Ib,
-                      'kmt_A_I': kmt_AI,
-                      }
+                    'KMT_Name': kmtName, 'KMT_year': int(yrEvent), 'KMT_id': kmtID,
+                    'KMT_url': url, 'KMT_urldata': url_tar,
+                    'pth_Temp_data': pthSaveTempData_thisEvent,
+                    'pth_Processed_data': pthSaveProcessedData_thisEvent,
+                    'separation_arcsec': float(sep_sv),
+                    'kmt_fieldStarID': kmt_fsID,
+                    'kmt_t0': kmt_t0,
+                    'kmt_u0': kmt_u0,
+                    'kmt_tE': kmt_tE,
+                    'kmt_Isource': kmt_Is,
+                    'kmt_Ibase': kmt_Ib,
+                    'kmt_A_I': kmt_AI,
+                    'kmt_data_status': kmt_policy['status'],
+                    'kmt_is_proprietary': kmt_policy['is_proprietary'],
+                    'kmt_public_release_date': kmt_policy['release_date'],
+                    }
         if crossMatch is not None:
             print('Saving Cross Match Result for {0} / {1}'.format(eventName_inp, kmtName))
             fn_saveXmatchData = 'xmatch_{0}_with_{1}.json'.format(eventName_inp, kmtName)
@@ -226,7 +253,9 @@ def main(eventName_inp='test_MW', ra_inp=67.0, dec_inp=76.0):
             print('Saving BHTOM data for {0}'.format(kmtName))
             for nmData, df_BHTOM in kmt_data.items():
                 print('Saving {0}'.format(nmData))
-                fn_saveData = 'data_{0}_{1}.csv'.format(kmtName, nmData)
+                # fn_saveData = 'data_{0}_{1}.csv'.format(kmtName, nmData)
+                fn_saveData = 'data_{0}_{1}{2}.csv'.format(kmtName, nmData, kmt_policy['name_suffix'])
+                
                 pth_saveData = os.path.join(pthSaveProcessedData_thisEvent, fn_saveData)
                 # savedFiles.append(fn_saveData)
                 if ((os.path.exists(pth_saveData)) & (OVERWRITE_TABLES != True)):

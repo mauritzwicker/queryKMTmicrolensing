@@ -12,11 +12,11 @@ from astropy.coordinates import SkyCoord
 import astropy.units as u
 from datetime import datetime
 
-DIR_SAVETABLES = '/Users/mwicker/Documents/Other_Code/getKMTdata/kmt_EventTables'
+DIR_SAVETABLES = '/Users/mwicker/Documents/Other_Code/queryKMTmicrolensing/kmt_EventTables'
 FNS_DATATABLES_BASE = 'kmtEvents_'
 YEAR_INIT = 2016
 YEAR_FINAL = datetime.now().year
-DIR_SAVEFULLTABLE = '/Users/mwicker/Documents/Other_Code/getKMTdata/'
+DIR_SAVEFULLTABLE = '/Users/mwicker/Documents/Other_Code/queryKMTmicrolensing/'
 FN_SAVEFULLTABLE = 'kmt_fullEvents.csv'
 OVERWRITE_TABLES = True
 
